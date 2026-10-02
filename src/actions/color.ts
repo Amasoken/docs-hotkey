@@ -44,7 +44,7 @@ const getElementWithExtremeTrailingNumber = <T extends HTMLElement>(elements: No
 const highlightHex = (color: string, toggle: boolean) => {
   // Check whether this hex color already exists
   const existingCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    `td[aria-label^="Custom Color ${color}"]`
+    `td[aria-label^="Custom colour ${color.toLowerCase()}"]`
   )
   const existingCustomColor = getElementWithExtremeTrailingNumber(existingCustomColorButtons, true)
 
@@ -58,7 +58,7 @@ const highlightHex = (color: string, toggle: boolean) => {
   }
 
   // If it doesn't exist, create it as a new custom color
-  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom color"]')
+  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom colour"]')
   const addCustomColor = getElementWithExtremeTrailingNumber(addCustomColorButtons, true)
   if (!addCustomColor) {
     throw new Error('unable to find custom color highlight button')
