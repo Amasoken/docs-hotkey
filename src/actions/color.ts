@@ -236,7 +236,7 @@ const textColorBlack = () => {
 const textColorHex = (color: string, toggle: boolean) => {
   // Check whether this hex color already exists
   const existingCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    `td[aria-label^="Custom Color ${color}"]`
+    `td[aria-label^="Custom colour ${color.toLowerCase()}"]`
   )
   const existingCustomColor = getElementWithExtremeTrailingNumber(existingCustomColorButtons, false)
 
@@ -250,7 +250,7 @@ const textColorHex = (color: string, toggle: boolean) => {
   }
 
   // If it doesn't exist, create it as a new custom color
-  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom color"]')
+  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom colour"]')
   const addCustomColor = getElementWithExtremeTrailingNumber(addCustomColorButtons, false)
   if (!addCustomColor) {
     throw new Error('unable to find custom text color button')
