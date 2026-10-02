@@ -18,35 +18,12 @@ const extractTrailingNumber = (str: string) => {
   return Number.isNaN(num) ? null : num
 }
 
-// Helper to discriminate between text (low) and highlight (high) elements
-const getElementWithExtremeTrailingNumber = <T extends HTMLElement>(elements: NodeListOf<T>, isMax: boolean): T | null => {
-  if (elements.length === 1) {
-    return elements[0]
-  }
-  let extremeElement: T | null = null
-  let extremeValue = isMax ? -Infinity : Infinity
-
-  elements.forEach(el => {
-    if (!el.id) return
-
-    const lastPart = el.id.split('-').pop()
-    const num = Number(lastPart)
-
-    if (!Number.isNaN(num) && ((isMax && num > extremeValue) || (!isMax && num < extremeValue))) {
-      extremeValue = num
-      extremeElement = el
-    }
-  })
-
-  return extremeElement
-}
-
 const highlightHex = (color: string, toggle: boolean) => {
   // Check whether this hex color already exists
   const existingCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
     `td[aria-label^="Custom colour ${color.toLowerCase()}"]`
   )
-  const existingCustomColor = getElementWithExtremeTrailingNumber(existingCustomColorButtons, true)
+  const existingCustomColor = existingCustomColorButtons[0]
 
   if (existingCustomColor) {
     if (toggle && existingCustomColor.classList.contains('docs-material-colorpalette-cell-selected')) {
@@ -59,7 +36,7 @@ const highlightHex = (color: string, toggle: boolean) => {
 
   // If it doesn't exist, create it as a new custom color
   const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom colour"]')
-  const addCustomColor = getElementWithExtremeTrailingNumber(addCustomColorButtons, true)
+  const addCustomColor = addCustomColorButtons[0]
   if (!addCustomColor) {
     throw new Error('unable to find custom color highlight button')
   }
@@ -238,7 +215,7 @@ const textColorHex = (color: string, toggle: boolean) => {
   const existingCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
     `td[aria-label^="Custom colour ${color.toLowerCase()}"]`
   )
-  const existingCustomColor = getElementWithExtremeTrailingNumber(existingCustomColorButtons, false)
+  const existingCustomColor = Array.from(existingCustomColorButtons).at(-1)
 
   if (existingCustomColor) {
     if (toggle && existingCustomColor.classList.contains('docs-material-colorpalette-cell-selected')) {
@@ -251,7 +228,7 @@ const textColorHex = (color: string, toggle: boolean) => {
 
   // If it doesn't exist, create it as a new custom color
   const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom colour"]')
-  const addCustomColor = getElementWithExtremeTrailingNumber(addCustomColorButtons, false)
+  const addCustomColor = Array.from(addCustomColorButtons).at(-1)
   if (!addCustomColor) {
     throw new Error('unable to find custom text color button')
   }
