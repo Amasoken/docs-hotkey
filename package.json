@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "INLINE_RUNTIME_CHUNK=false craco build",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.193",
+    "cross-env": "^10.1.0",
     "react-scripts": "^5.0.0"
   }
 }
