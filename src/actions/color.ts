@@ -21,7 +21,7 @@ const extractTrailingNumber = (str: string) => {
 const highlightHex = (color: string, toggle: boolean) => {
   // Check whether this hex color already exists
   const existingCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    `td[aria-label^="Custom colour ${color.toLowerCase()}"]`
+    `td[aria-label*="${color.toLowerCase()}"]`
   )
   const existingCustomColor = existingCustomColorButtons[0]
 
@@ -35,7 +35,9 @@ const highlightHex = (color: string, toggle: boolean) => {
   }
 
   // If it doesn't exist, create it as a new custom color
-  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom colour"]')
+  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
+    'td:has(>div.docs-customcolorpalette-add-custom-color-button)'
+  )
   const addCustomColor = addCustomColorButtons[0]
   if (!addCustomColor) {
     throw new Error('unable to find custom color highlight button')
@@ -213,7 +215,7 @@ const textColorBlack = () => {
 const textColorHex = (color: string, toggle: boolean) => {
   // Check whether this hex color already exists
   const existingCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    `td[aria-label^="Custom colour ${color.toLowerCase()}"]`
+    `td[aria-label*="${color.toLowerCase()}"]`
   )
   const existingCustomColor = Array.from(existingCustomColorButtons).at(-1)
 
@@ -227,7 +229,9 @@ const textColorHex = (color: string, toggle: boolean) => {
   }
 
   // If it doesn't exist, create it as a new custom color
-  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll('td[aria-label="Add a custom colour"]')
+  const addCustomColorButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
+    'td:has(>div.docs-customcolorpalette-add-custom-color-button)'
+  )
   const addCustomColor = Array.from(addCustomColorButtons).at(-1)
   if (!addCustomColor) {
     throw new Error('unable to find custom text color button')
